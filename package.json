@@ -1,0 +1,12 @@
+{
+  "name": "simple-q",
+  "version": "1.0.0",
+  "description": "Simple promise defer library",
+  "main": "index.js",
+  "scripts": {
+    "example":"node ./example.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
