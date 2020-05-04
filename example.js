@@ -6,8 +6,12 @@ const SimpleQ = require('./simple-q')
 function example_one() {
 
     const sq = SimpleQ()
+
     sq.reject({ data: 123, value: 'return as rejected' })
-    sq.resolve('some data') // will never fire, reject already set
+
+    setTimeout(() => {
+        sq.resolve('some data') // will never fire, reject already set
+    }, 1000)
 
     sq.promise().then(z => {
         console.log('[resolve]', z)
@@ -23,14 +27,15 @@ function example_one() {
 function example_two() {
 
     const sq = SimpleQ()
+
     setTimeout(() => {
         // will never fire
-        sq.reject({ data: 123, value: 'return as rejected' })  
+        sq.reject({ data: 123, value: 'return as rejected' })
     }, 2000)
 
-  setTimeout(() => {
+    setTimeout(() => {
         sq.resolve({ data: 123, value: 'return as resolved' })
-    },1000)
+    }, 1000)
 
     sq.promise().then(z => {
 
@@ -43,6 +48,6 @@ function example_two() {
     })
 }
 
-// example_one()
+example_one()
 example_two()
 
