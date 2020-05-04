@@ -9,25 +9,14 @@ function SimpleQ() {
     
     function P() {
 
-        const promises = {
-        }
+        const promises = {}
         let __deferSet = null
         let __reject__set = null
         let __resolve__set = null       
-        // const promiseCall = (condition = null, cb) => {
-
-        //     // only allow these
-        //     if(typeof cb ==='function' && !promises[condition] && 
-        //         (condition==='resolve' || condition==='reject' )  ){
-        //         promises[condition] =  {cb}
-        //         return promises[condition]
-        //     }      
-        // }
-
+        
         this.__resolve = new Promise((resolve, reject) => {
             promises['resolve']= resolve           
         })
-
         
         this.__reject = new Promise((resolve, reject) => {
             promises['reject']= reject
