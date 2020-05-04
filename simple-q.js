@@ -61,8 +61,7 @@ function SimpleQ() {
         }
 
         this.promise = () => {
-            // we only have resolve and reject
-            // lets do lazy loop to wait for one to reoslve or reject first
+            // lets lazy wait for one to resolve or reject first
             const resolution = (resolve,reject)=>{
                 res['resolve'].then(resolve)
                 rej['reject'].catch(reject)
