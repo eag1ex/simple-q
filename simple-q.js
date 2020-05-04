@@ -8,23 +8,48 @@ function SimpleQ() {
     return new P();
     
     function P() {
-        this.__deferSet = null
-        this.__reject = undefined
-        this.__resolve = undefined
 
+        const promises = {
+        }
+        let __deferSet = null
+        let __reject__set = null
+        let __resolve__set = null       
+        // const promiseCall = (condition = null, cb) => {
+
+        //     // only allow these
+        //     if(typeof cb ==='function' && !promises[condition] && 
+        //         (condition==='resolve' || condition==='reject' )  ){
+        //         promises[condition] =  {cb}
+        //         return promises[condition]
+        //     }      
+        // }
+
+        this.__resolve = new Promise((resolve, reject) => {
+            promises['resolve']= resolve           
+        })
+
+        
+        this.__reject = new Promise((resolve, reject) => {
+            promises['reject']= reject
+        })
+
+     
         // set resolve or reject
         const setPromise = (condition = 'resolve') => {
             return Object.create({}, {
                 [condition]: {
                     configurable: true,
                     enumerable: true,
-                    get: () => this[`__${condition}`],
+                    get: () => {
+                        return this[`__${condition}`]
+           
+                    },
                     set: (v) => {
-                        if (this[`__${condition}`] !== undefined) return
-                        this[`__${condition}`] = new Promise((resolve, reject) => {
-                            if (condition === 'resolve') return resolve(v)
-                            if (condition === 'reject') return reject(v)
-                        })
+                        // make callback on set with new data
+                        if(!this[`__${condition}__set`]) {
+                            promises[condition](v)
+                            this[`__${condition}__set`] = true
+                        }
                     }
                 }
             })
@@ -32,29 +57,28 @@ function SimpleQ() {
         const res = setPromise('resolve')
         const rej = setPromise('reject')
 
-        this.resolve = (data = true) => {
-            if (this.__deferSet) return this // already set
+        this.resolve = (data = null) => {
+            if (__deferSet) return this // already set
             res['resolve'] = data
-            this.__deferSet = true
+            __deferSet = true
             return this
         }
 
-        this.reject = (data = true) => {
-            if (this.__deferSet) return this // already set
+        this.reject = (data = null) => {
+            if (__deferSet) return this // already set
             rej['reject'] = data
-            this.__deferSet = true
+           __deferSet = true
             return this
         }
 
-        this.promise = () => {
-            const resolutions = (() => [].concat([res['resolve'], rej['reject']].filter(z => z !== undefined)))()
-
-            return Promise.all(resolutions).then(z => {
-                for (let i = 0; i < z.length; i++) {
-                    if (z[i] !== undefined) return z[i]
-                    else return Promise.reject(z[i])
-                }
-            })
+        this.promise = async () => {
+            // we only have resolve and reject
+            // lets do lazy loop to wait for one to reoslve or reject first
+            const resolution = (resolve,reject)=>{
+                res['resolve'].then(resolve)
+                rej['reject'].catch(reject)
+            }
+             return new Promise(resolution)
         }
     }
 }

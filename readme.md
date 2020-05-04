@@ -17,10 +17,15 @@ SimpleQ is a promise library, similar to `Q` library, but uses simpler concept o
 #### Usage
 ```
 const sq =  SimpleQ()
-sq.resolve({ data: 123, value: 'return as resolved' })
 
-	// will never fire, resolve set already set
-	sq.reject({ data: 123, value: 'return as rejected' }) 
+  setTimeout(() => {
+        // will never fire
+        sq.reject({ data: 123, value: 'return as rejected' })  
+    }, 2000)
+
+  setTimeout(() => {
+        sq.resolve({ data: 123, value: 'return as resolved' })
+    },1000)
 	
 sq.promise().then(z  => {
 	// NOTE nice!

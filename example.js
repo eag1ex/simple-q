@@ -23,8 +23,15 @@ function example_one() {
 function example_two() {
 
     const sq = SimpleQ()
-    sq.resolve({ data: 123, value: 'return as resolved' })
-    sq.reject({ data: 123, value: 'return as rejected' }) // will never fire, resolved already set
+    setTimeout(() => {
+        // will never fire
+        sq.reject({ data: 123, value: 'return as rejected' })  
+    }, 2000)
+
+  setTimeout(() => {
+        sq.resolve({ data: 123, value: 'return as resolved' })
+    },1000)
+
     sq.promise().then(z => {
 
         // NOTE nice!
@@ -36,6 +43,6 @@ function example_two() {
     })
 }
 
-example_one()
+// example_one()
 example_two()
 
