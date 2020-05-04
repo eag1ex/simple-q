@@ -1,14 +1,13 @@
 `use strict`
 /**
- * SimpleQ 
- * - a simple Promise, uses object create, setter/getter to watch for change
- * - examples provided in `example.js`
+ * SimpleQ
+ * Developer: Eaglex ( http://eaglex.net ) 
+ * License: CC BY-SA ( https://creativecommons.org/licenses/by/4.0/legalcode )
+ * - Simple Promise, uses object.create, setter/getter to watch for change
  */
 function SimpleQ() {
-    return new P();
     
-    function P() {
-
+    return new function() {
         const promises = {}
         let __deferSet = null
         let __reject__set = null
