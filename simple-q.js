@@ -13,7 +13,7 @@ function SimpleQ() {
         let __deferSet = null
         let __reject__set = null
         let __resolve__set = null       
-        
+
         this.__resolve = new Promise((resolve, reject) => {
             promises['resolve']= resolve           
         })
@@ -60,7 +60,7 @@ function SimpleQ() {
             return this
         }
 
-        this.promise = async () => {
+        this.promise = () => {
             // we only have resolve and reject
             // lets do lazy loop to wait for one to reoslve or reject first
             const resolution = (resolve,reject)=>{
