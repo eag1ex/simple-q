@@ -6,7 +6,7 @@ const SimpleQ = require('./simple-q')
 function example_one() {
 
     const sq = SimpleQ()
-
+    
     sq.reject({ data: 123, value: 'return as rejected' })
 
     setTimeout(() => {

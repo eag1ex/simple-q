@@ -8,19 +8,16 @@
 function SimpleQ() {
     
     return new function() {
-        const promises = {}
-        let __deferSet = null
-        let __reject__set = null
-        let __resolve__set = null       
+        const promises = {}     
+        const getters = {}
+        let __deferSet = null   
 
-        this.__resolve = new Promise((resolve, reject) => {
+        getters['resolve'] =  new Promise((resolve, reject) => {
             promises['resolve']= resolve           
         })
-        
-        this.__reject = new Promise((resolve, reject) => {
+        getters['reject'] =  new Promise((resolve, reject) => {
             promises['reject']= reject
         })
-
      
         // set resolve or reject
         const setPromise = (condition = 'resolve') => {
@@ -29,7 +26,7 @@ function SimpleQ() {
                     configurable: true,
                     enumerable: true,
                     get: () => {
-                        return this[`__${condition}`]
+                        return getters[condition]
            
                     },
                     set: (v) => {
