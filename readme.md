@@ -15,7 +15,8 @@ SimpleQ is a promise library, similar to `Q` library, but uses simpler concept o
 - examples available at `./example.js`
 
 #### Usage
-```
+```js
+// esm version use import {sq} from './sq/es'
 const sq =  SimpleQ()
 
   setTimeout(() => {
@@ -37,5 +38,6 @@ sq.promise().then(z  => {
 
 #### Files
 - `./simple-q.js`
+- `./es.js` esm version support
 
 Thank you

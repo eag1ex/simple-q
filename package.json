@@ -4,9 +4,12 @@
   "description": "Simple promise defer library",
   "main": "index.js",
   "scripts": {
-    "example":"node ./example.js",
+    "example": "node ./example.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "esm": "^3.2.25"
+  }
 }
